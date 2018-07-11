@@ -30,6 +30,7 @@ OPTIONS=(A "PGDupes            "
          C "WebTools 3.0"
          D "Telly        (BETA)"
          E "SSTVProxy    (BETA)"
+         F "Mopidy       (BETA)"
          Z "Exit")
 
 CHOICE=$(dialog --clear \
@@ -65,7 +66,7 @@ case $CHOICE in
               --backtitle "Visit https://PlexGuide.com - Automations Made Simple" \
               --yesno "\nDo You Want to Install WebTools 3.0?" 7 50; then
                 dialog --infobox "WebTools: Installing - Please Wait (Slow)" 3 48
-                clear 
+                clear
                 ansible-playbook /opt/plexguide/pg.yml --tags webtools
                 read -n 1 -s -r -p "Press any key to continue"
 
@@ -79,6 +80,11 @@ case $CHOICE in
             ;;
         E)
             bash /opt/plexguide/menus/plex/sstvproxy.sh
+            ;;
+        F)
+            echo 'INFO - Selected: Mopidy       (BETA)' > /var/plexguide/pg.log && bash /opt/plexguide/scripts/log.sh
+            clear && ansible-playbook /opt/plexguide/pg.yml --tags Mopidy
+            read -n 1 -s -r -p "Press any key to continue"
             ;;
         Z)
             clear
